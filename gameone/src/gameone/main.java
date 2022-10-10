@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import java.awt.Color;
 
 public class main extends JFrame {
 
@@ -39,6 +40,7 @@ public class main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.PINK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -50,6 +52,7 @@ public class main extends JFrame {
 		contentPane.add(scoreis);
 		
 		JButton levelone = new JButton("Level 1");
+		levelone.setBackground(Color.BLUE);
 		levelone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				levelone one = new levelone();
@@ -62,6 +65,7 @@ public class main extends JFrame {
 		contentPane.add(levelone);
 		
 		JButton leveltwo = new JButton("Level 2");
+		leveltwo.setBackground(Color.YELLOW);
 		leveltwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				leveltwo two = new leveltwo();
@@ -75,6 +79,7 @@ public class main extends JFrame {
 		contentPane.add(leveltwo);
 		
 		JButton levelthree = new JButton("Level 3");
+		levelthree.setBackground(Color.RED);
 		levelthree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				levelthree three = new levelthree();
