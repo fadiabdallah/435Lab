@@ -47,8 +47,8 @@ public class Player {
 			y=0;
 		
 		
-		if(x<= 480 -32) 
-			x=480 - 32;
+		if(y<= 480 -32) 
+			y=480 - 32;
 
 	}
 	
