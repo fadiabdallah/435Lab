@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 
 
+
 public class Game extends Canvas implements Runnable {
 	
 	
@@ -32,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	private Player p;
+	private Controller c;
 	
 	
 	
@@ -48,8 +50,9 @@ public class Game extends Canvas implements Runnable {
 			
 		}
 		addKeyListener(new KeyInput(this));  //p is the shooter loaded 
-		p= new Player (200, 200, this);
-		//(320, 435, this)
+		p= new Player (320, 435, this);
+
+		c = new Controller(this);
 
 		
 	}
@@ -76,13 +79,14 @@ public class Game extends Canvas implements Runnable {
 			thread.join();  //joins all threads together and waits them to die 
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		System.exit(1);
 		
 	}
 	
 	public void run() {
+		
 		init();
 		long lastTime = System.nanoTime();
 		final double amountOfTicks = 60.0;
@@ -130,6 +134,7 @@ public class Game extends Canvas implements Runnable {
 	private void tick() {
 		
 		p.tick();
+		c.tick();
 	}
 	
 	
@@ -152,6 +157,7 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(player,  100,  100, this);
 		
 		p.render(g);
+		c.render(g);
 		
 		
 		g.dispose();
@@ -172,6 +178,8 @@ public class Game extends Canvas implements Runnable {
 			p.setX(p.getY() + 5);
 		}else if (key == KeyEvent.VK_UP) {
 			p.setX(p.getY() - 5);
+		}else if (key == KeyEvent.VK_SPACE) {
+			c.addBullet(new Bullet(p.getX(), p.getY(), this));
 		}
 		
 		
