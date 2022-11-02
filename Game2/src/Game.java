@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -67,10 +68,22 @@ public class Game extends Canvas implements Runnable {
 	private Player p;
 	private Controller c;
 	private Textures tex;
+	private Menu menu;
 	
 	
 	public LinkedList<EntityA>ea;
 	public LinkedList<EntityB>eb;
+	
+	
+	public static int HEALTH = 100 * 2;
+	
+	
+	public static enum STATE{
+		MENU,
+		GAME
+	};
+	
+	public static STATE State = STATE.MENU;
 	
 	
 	public void init() {
@@ -91,9 +104,11 @@ public class Game extends Canvas implements Runnable {
 		tex= new Textures(this);
 		
 		
-		p= new Player (320, 435, tex);
+		
 
-		c = new Controller(tex);
+		c = new Controller(tex, this);
+		p= new Player (320, 435, tex, this, c);
+		menu = new Menu();
 		
 		ea = c.getEntityA();
 		eb = c.getEntityB();
@@ -101,6 +116,9 @@ public class Game extends Canvas implements Runnable {
 		
 		
 		this.addKeyListener(new KeyInput(this));
+		this.addMouseListener(new MouseInput());
+		
+		
 		c.createEnemy(enemy_count);
 		
 		
@@ -181,9 +199,18 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
-
-		//p.tick();
-		c.tick();
+		if(State == STATE.GAME) {
+			//p.tick();
+			c.tick();
+		}
+		
+		if(enemy_killed >= enemy_count) {
+			enemy_count +=2;
+			enemy_killed = 0;
+			c.createEnemy(enemy_count);
+			
+		}
+		
 	}
 	
 	
@@ -206,9 +233,25 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(player,  100,  100, this);
 		g.drawImage(background, 0, 0, null);
 		
+		if(State == STATE.GAME) {
 		p.render(g);
 		c.render(g);
 		
+		g.setColor(Color.gray);				//health bar
+		g.fillRect(5,  5,  200,  50);
+		
+		
+		g.setColor(Color.green);
+		g.fillRect(5,  5,  HEALTH,  50);
+		
+		g.setColor(Color.white);
+		g.drawRect(5,  5,  HEALTH,  50);
+		
+		
+		}else if(State == STATE.MENU) {
+			menu.render(g);
+			
+		}
 		
 		g.dispose();
 		bs.show();
@@ -219,7 +262,7 @@ public class Game extends Canvas implements Runnable {
 	public void keyPressed(KeyEvent e){
 		
 		int key = e.getKeyCode();
-		
+		if(State == STATE.GAME) {
 		if (key == KeyEvent.VK_RIGHT ) {
 			p.setX(p.getX() + 15);
 		} else if (key == KeyEvent.VK_LEFT) {			//use right, left, up, down for directions of shooter 
@@ -232,7 +275,7 @@ public class Game extends Canvas implements Runnable {
 			c.addEntity(new Bullet(p.getX(), p.getY(), tex, this));
 			is_shooting = true;
 					//space for bullet shooting 
-		}
+		}}
 		
 		
 		

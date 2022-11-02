@@ -24,11 +24,7 @@ public class Bullet extends GameObject implements EntityA{
 		y -= 10;
 		
 		
-		if(Physics.Collisions(this, game.eb)) 
-			//what happens when collision occurs 
-		{
-			System.out.println("collision detected");
-		}
+	
 		
 	}
 	

@@ -6,8 +6,10 @@ public class Player extends GameObject implements EntityA{
 	
 	private double velX =0;		//for the speed of shooter 
 	private double velY =0;
+	private Textures tex;
 	
-	
+	Game game;
+	Controller controller;
       //position of player (x,y) 
 
 	
@@ -16,14 +18,16 @@ public class Player extends GameObject implements EntityA{
 	
 	
 	
-	private Textures tex;
+
 	
 	
 	
-	public Player (double x, double y, Textures tex){
+	public Player (double x, double y, Textures tex, Game game, Controller controller){
 		
 		super(x, y);
 		this.tex =tex;
+		this.game = game;
+		this.controller = controller;
 		
 	
 	}
@@ -53,6 +57,19 @@ public class Player extends GameObject implements EntityA{
 		
 		if(y<= 480 -32) 
 			y=480 - 32;
+		
+		
+		for(int i = 0; i < game.eb.size();i++) 
+		{
+			EntityB tempEnt = game.eb.get(i);
+			
+			if(Physics.Collision(this,  tempEnt)) 
+			{
+				controller.removeEntity(tempEnt);
+				Game.HEALTH -=10;
+				game.setEnemy_killed(game.getEnemy_killed() + 1);
+			}
+		}
 
 	}
 	

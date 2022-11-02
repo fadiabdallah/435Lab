@@ -12,12 +12,15 @@ public class Enemy extends GameObject implements EntityB{
 	private Textures tex ;
 	Random r = new Random();
 	private int speed = r.nextInt(3)+1;		//targets will be of diff speeds
-	
+	private Game game;
+	private Controller c;
 
 	
-   public Enemy(double x, double y, Textures tex){
+   public Enemy(double x, double y, Textures tex, Controller c, Game game){
 	   super(x, y); 
 	   this.tex = tex;
+	   this.c= c;
+	   this.game = game;
 	   }
 	   
 	   
@@ -31,6 +34,24 @@ public class Enemy extends GameObject implements EntityB{
 			x = r.nextInt(640);
 			y=-10;
 			}
+		
+		
+		
+		for (int i =0; i < game.ea.size(); i++) 
+		{
+			EntityA tempEnt = game.ea.get(i);
+			
+			if(Physics.Collision(this,  tempEnt)) 
+			{
+				c.removeEntity(tempEnt);
+				c.removeEntity(this);
+				game.setEnemy_killed(game.getEnemy_killed() + 1);
+			}
+			
+			
+		}
+		
+		
 		
 	}
 	
