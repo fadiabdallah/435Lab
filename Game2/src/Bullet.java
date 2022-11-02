@@ -1,40 +1,58 @@
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
-public class Bullet {
+
+public class Bullet extends GameObject implements EntityA{
 	
 	
 
-	private double x; 
-	private double y; 
+
+    private Textures tex;
+	private Game game;
 	
-	
-	BufferedImage image;
-	
-	
-	public Bullet(double x, double y, Game game) {
-		this.x = x;
-		this.y = y;
+	public Bullet(double x, double y, Textures tex, Game game) {
+		super(x, y);
+		this.tex = tex;
+		this.game = game;
 		
 		
-		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-		
-		image = ss.grabImage(2, 1, 32, 32);
 	}
 	
 	
 	public void tick() {
 		
 		y -= 10;
+		
+		
+	
+		
 	}
 	
+	public Rectangle getBounds(int width, int height) {
+		return new Rectangle((int)x, (int)y, width, height);
+	}
+
+	
 	public void render (Graphics g) {
-		g.drawImage(image, (int)x, (int)y, null );
+		g.drawImage(tex.missile, (int)x, (int)y, null );
 		
 	}
 	
 	public double getY() {
 		return y;
+	}
+
+
+	public double getX() {
+
+		return x;
+	}
+
+
+
+	public Rectangle getBounds() {
+		
+		return null;
 	}
 	
 	

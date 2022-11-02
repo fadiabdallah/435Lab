@@ -1,27 +1,35 @@
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
-public class Player {
+
+public class Player extends GameObject implements EntityA{
 	
 	private double velX =0;		//for the speed of shooter 
 	private double velY =0;
+	private Textures tex;
 	
-	
-	private double x;      //position of player (x,y) 
-	private double y;
+	Game game;
+	Controller controller;
+      //position of player (x,y) 
+
 	
 
 	
-	private BufferedImage player;
 	
-	public Player (double x, double y, Game game) {
-		
-		this.x = x;   
-		this.y = y;
-		
-		SpriteSheet ss = new SpriteSheet (game.getSpriteSheet());
-		player = ss.grabImage(1, 1, 32, 32);		
+	
+	
 
+	
+	
+	
+	public Player (double x, double y, Textures tex, Game game, Controller controller){
+		
+		super(x, y);
+		this.tex =tex;
+		this.game = game;
+		this.controller = controller;
+		
+	
 	}
 	
 	
@@ -30,7 +38,7 @@ public class Player {
 	
 	public void tick(){
 		
-		x+= velX;
+		x+= velX;		//for speed 
 		y+= velY;
 		
 		
@@ -49,13 +57,30 @@ public class Player {
 		
 		if(y<= 480 -32) 
 			y=480 - 32;
+		
+		
+		for(int i = 0; i < game.eb.size();i++) 
+		{
+			EntityB tempEnt = game.eb.get(i);
+			
+			if(Physics.Collision(this,  tempEnt)) 
+			{
+				controller.removeEntity(tempEnt);
+				Game.HEALTH -=10;
+				game.setEnemy_killed(game.getEnemy_killed() + 1);
+			}
+		}
 
 	}
 	
+	public Rectangle getBounds() {
+		return new Rectangle((int)x, (int)y, 32, 32);
+	}
+
 	
 	public void render(Graphics g) {
 		
-		g.drawImage(player, (int)x, (int)y, null); //drawImage only takes int types but x and y are double so we cast them as ints  
+		g.drawImage(tex.player, (int)x, (int)y, null); //drawImage only takes int types but x and y are double so we cast them as ints  
 			
 	}
 	
