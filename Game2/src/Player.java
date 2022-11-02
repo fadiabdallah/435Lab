@@ -1,27 +1,31 @@
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
-public class Player {
+
+public class Player extends GameObject implements EntityA{
 	
 	private double velX =0;		//for the speed of shooter 
 	private double velY =0;
 	
 	
-	private double x;      //position of player (x,y) 
-	private double y;
+      //position of player (x,y) 
+
 	
 
 	
-	private BufferedImage player;
 	
-	public Player (double x, double y, Game game) {
+	
+	
+	private Textures tex;
+	
+	
+	
+	public Player (double x, double y, Textures tex){
 		
-		this.x = x;   
-		this.y = y;
+		super(x, y);
+		this.tex =tex;
 		
-		SpriteSheet ss = new SpriteSheet (game.getSpriteSheet());
-		player = ss.grabImage(1, 1, 32, 32);		
-
+	
 	}
 	
 	
@@ -30,7 +34,7 @@ public class Player {
 	
 	public void tick(){
 		
-		x+= velX;
+		x+= velX;		//for speed 
 		y+= velY;
 		
 		
@@ -52,10 +56,14 @@ public class Player {
 
 	}
 	
+	public Rectangle getBounds() {
+		return new Rectangle((int)x, (int)y, 32, 32);
+	}
+
 	
 	public void render(Graphics g) {
 		
-		g.drawImage(player, (int)x, (int)y, null); //drawImage only takes int types but x and y are double so we cast them as ints  
+		g.drawImage(tex.player, (int)x, (int)y, null); //drawImage only takes int types but x and y are double so we cast them as ints  
 			
 	}
 	
