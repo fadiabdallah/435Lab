@@ -39,25 +39,25 @@ public class Player extends GameObject implements EntityA{
 	
 	public void tick(){
 		
-		x+= velX;		//for speed 
-		y+= velY;
-		
-		
-		
-		if(x<= 0) 
-			x=0;
-		
-		
-		if(x<= 640)  
-			x=640;
-		
-		
-		if(y<= 0) 
-			y=0;
-		
-		
-		if(y<= 480 -32) 
-			y=480 - 32;
+//		x+= velX;		//for speed 
+//		y+= velY;
+//		
+//		
+//		
+//		if(x<= 0) 
+//			x=0;
+//		
+//		
+//		if(x<= 640)  
+//			x=640;
+//		
+//		
+//		if(y<= 0) 
+//			y=0;
+//		
+//		
+//		if(y<= 480 -32) 
+//			y=480 - 32;
 		
 		
 		for(int i = 0; i < game.eb.size();i++) 
@@ -66,9 +66,9 @@ public class Player extends GameObject implements EntityA{
 			
 			if(Physics.Collision(this,  tempEnt)) 
 			{
-				controller.removeEntity(tempEnt);
+				
 				Game.HEALTH -=10;
-				game.setEnemy_killed(game.getEnemy_killed() + 1);
+
 			}
 		}
 

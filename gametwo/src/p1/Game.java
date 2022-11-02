@@ -203,7 +203,7 @@ public class Game extends Canvas implements Runnable {
 				if(System.currentTimeMillis()  - timer > 1000){ 
 					timer += 1000;  
 					System.out.println(updates + "Ticks, Fps " + frames); 
-					System.out.println(this.angle);
+					System.out.println(this.HEALTH);
 
 					updates = 0;    
 					frames = 0;
@@ -217,7 +217,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private void tick() {
 		if(State == STATE.GAME) {
-//			
+			p.tick();
 			c.tick();
 		}
 		
@@ -321,7 +321,7 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	public static void main (String args[]) {
-		Game game =new Game(12
+		Game game =new Game(0
 				,1);
 		
 		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT *SCALE)) ;
