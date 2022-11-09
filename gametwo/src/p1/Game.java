@@ -330,7 +330,7 @@ public class Game extends Canvas implements Runnable {
 		
 		
 																					//size of game window 
-		
+		 
 		
 		JFrame frame = new JFrame(game.TITLE);
 		frame.add(game);
