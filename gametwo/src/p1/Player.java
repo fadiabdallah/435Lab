@@ -67,9 +67,13 @@ public class Player extends GameObject implements EntityA{
 			if(Physics.Collision(this,  tempEnt)) 
 			{
 				
-				Game.HEALTH -=10;
+				Game.HEALTH -=1;
+				//System.exit(0);
 
 			}
+		}
+		if (Game.HEALTH==10) {
+			System.exit(0);
 		}
 
 	}
