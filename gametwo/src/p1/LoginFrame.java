@@ -145,6 +145,8 @@ public class LoginFrame extends JFrame implements ActionListener  {
 	                if (found) {
 	                    JOptionPane.showMessageDialog(this, "Login Successful");
 	                    loggedin=true;
+	                    Login.enter=true;
+	                    Game.main(null);
 
 	                } else {
 	                   JOptionPane.showMessageDialog(this, "Invalid Username or Password");

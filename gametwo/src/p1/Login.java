@@ -16,10 +16,31 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Login {
+	public static boolean enter= false;
 	public static final long serialVersionUID= 1l;
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = WIDTH/12 * 9; 
 	public static final int SCALE=2;
+	public static void enterGame() {
+if (enter) {
+	 LoginFrame logframe=new LoginFrame();
+     logframe.setTitle("Login Form");
+     logframe.setVisible(true);
+     logframe.setBounds(10,10,370,600);
+     logframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     logframe.setResizable(false);
+	 Game game =new Game(logframe.value,logframe.level);
+      		JFrame frame = new JFrame(game.TITLE);
+      		frame.add(game);
+      		frame.pack();
+      		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      		frame.setResizable(false);
+      		frame.setLocationRelativeTo(null);
+      		game.start();
+      		logframe.updateScore(game.score);
+            frame.setVisible(true);
+      		}
+	}
     public static void main(String[] a) throws IOException {
     	   LoginFrame logframe=new LoginFrame();
            logframe.setTitle("Login Form");
@@ -35,7 +56,8 @@ public class Login {
       		
       		
       																					//size of game window 
-     
+      		if (enter) {
+      			
       		
       		JFrame frame = new JFrame(game.TITLE);
       		frame.add(game);
@@ -46,11 +68,14 @@ public class Login {
       		game.start();
       		logframe.updateScore(game.score);
             frame.setVisible(true);
+            logframe.dispose();
+        		}
         while(true) {  
         if (logframe.loggedin==true) {
         System.out.println("hiiiiiii");
 
         }
+        
         
    		
    	}}
